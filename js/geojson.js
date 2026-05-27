@@ -26,24 +26,73 @@ function buildLayerList() {
         fragment.appendChild(buildLayerItemsStickyHeader());
       }
 
-      layerInfo.items.forEach(item => {
+      const openItem = (item) => {
+        ensureLayerVisible(layerInfo.label);
+        map.setView([item.lat, item.lon], DEFAULT_ZOOM_ON_SEARCH);
+        item.marker.openPopup();
+      };
+
+      const createItemRow = (item, options) => {
         let row;
         if (typeof buildLayerItemRowElement === 'function') {
-          row = buildLayerItemRowElement(item);
+          row = buildLayerItemRowElement(item, options || {});
         } else {
           row = document.createElement('div');
           row.className = 'layer-item';
-          row.textContent = item.name || 'ללא שם';
+          row.textContent = item.name || '';
         }
 
-        row.addEventListener('click', () => {
-          ensureLayerVisible(layerInfo.label);
-          map.setView([item.lat, item.lon], DEFAULT_ZOOM_ON_SEARCH);
-          item.marker.openPopup();
+        row.addEventListener('click', () => openItem(item));
+        return row;
+      };
+
+      if (typeof getLayerItemFields === 'function' && typeof buildLayerGroupSummaryRowElement === 'function') {
+        const groups = new Map();
+
+        layerInfo.items.forEach(item => {
+          const fields = getLayerItemFields(item);
+          const number = String(fields.number || item.name || '').replace(/^#\s*/, '').trim();
+          const key = number || `__empty_${groups.size}`;
+
+          if (!groups.has(key)) {
+            groups.set(key, {
+              number,
+              displayName: fields.displayName || '',
+              items: []
+            });
+          }
+
+          const group = groups.get(key);
+          if (!group.displayName && fields.displayName) group.displayName = fields.displayName;
+          group.items.push(item);
         });
 
-        fragment.appendChild(row);
-      });
+        groups.forEach(group => {
+          if (group.items.length === 1) {
+            fragment.appendChild(createItemRow(group.items[0]));
+            return;
+          }
+
+          const detailsDiv = document.createElement('div');
+          detailsDiv.className = 'layer-group-details';
+
+          group.items.forEach(item => {
+            detailsDiv.appendChild(createItemRow(item, { detail: true }));
+          });
+
+          const summaryRow = buildLayerGroupSummaryRowElement(group, () => {
+            detailsDiv.classList.toggle('open');
+            return detailsDiv.classList.contains('open');
+          });
+
+          fragment.appendChild(summaryRow);
+          fragment.appendChild(detailsDiv);
+        });
+      } else {
+        layerInfo.items.forEach(item => {
+          fragment.appendChild(createItemRow(item));
+        });
+      }
 
       itemsDiv.appendChild(fragment);
       itemsDiv.dataset.built = '1';
