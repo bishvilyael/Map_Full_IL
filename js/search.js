@@ -11,7 +11,9 @@ function updateSearchModeUi() {
   const isArea = getActiveSearchMode() === 'area';
   clearSearchUi();
   exactSearchLabel.style.display = isArea ? 'none' : 'block';
-  searchInput.placeholder = isArea ? 'הקלד אזור, מדינה, מחוז או עיר...' : 'חיפוש לפי שם, Badge, מזהה, תאריך...';
+  searchInput.placeholder = isArea
+    ? 'הקלד אזור, מדינה, מחוז או עיר...'
+    : (isRestLoadingComplete ? 'חיפוש לפי שם, Badge, מזהה, תאריך...' : 'חיפוש יעלים יהיה זמין בסיום טעינת כל הנקודות...');
 }
 
 function zoomToBounds(bounds) {
@@ -157,6 +159,11 @@ function escapeRegExp(text) { return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 async function doSearch() {
   if (getActiveSearchMode() === 'area') {
     await doAreaSearch();
+    return;
+  }
+
+  if (!isRestLoadingComplete) {
+    searchResultsEl.innerHTML = '<div class="search-result-line">חיפוש יעלים יהיה זמין לאחר סיום טעינת כל הנקודות</div>';
     return;
   }
 

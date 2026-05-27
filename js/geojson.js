@@ -128,10 +128,25 @@ async function loadGeoJsonPart(filePath, layerLabel, visible, partName) {
   return { layerInfo, addedCount };
 }
 
-function updateLayerListCountsOnly() {
-  // כרגע פשוט בונים מחדש.
-  // זה שומר על פשטות ומבטיח שהמספרים ברשימת היעלים משקפים גם את rest.
+function markLayerListDirty() {
+  isLayerListDirty = true;
+}
+
+function buildLayerListIfNeeded(force = false) {
+  if (!force && isLayerListBuilt && !isLayerListDirty) return;
   buildLayerList();
+  isLayerListBuilt = true;
+  isLayerListDirty = false;
+}
+
+function updateLayerListCountsOnly() {
+  markLayerListDirty();
+
+  // סעיף 2: לא בונים את רשימת היעלים בזמן טעינת המפה.
+  // אם החלונית כבר פתוחה, מעדכנים אותה; אחרת הבנייה תתבצע רק בפתיחה.
+  if (layersPanel.classList.contains('open')) {
+    buildLayerListIfNeeded(true);
+  }
 }
 
 function buildStatusText(isBackgroundDone, statusLines) {
@@ -167,7 +182,7 @@ async function loadIsraelFirst() {
     }
   });
 
-  buildLayerList();
+  markLayerListDirty();
   fitIsraelView();
   setStatus(buildStatusText(false, statusLines));
 
@@ -196,6 +211,8 @@ async function loadRestInBackground(statusLines) {
     await waitForBrowser(BACKGROUND_REST_LOAD_DELAY_MS);
   }
 
+  isRestLoadingComplete = true;
+  updateLayerListCountsOnly();
   setStatus(buildStatusText(true, statusLines));
 }
 

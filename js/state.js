@@ -19,3 +19,6 @@ const searchableItems = [];
 
 let totalMarkers = 0;
 let loadedLayers = 0;
+let isRestLoadingComplete = false;
+let isLayerListBuilt = false;
+let isLayerListDirty = true;

@@ -1,5 +1,12 @@
 searchToggle.addEventListener('click', () => { const willOpen = !searchPanel.classList.contains('open'); closeAllPanels(); if (willOpen) { searchPanel.classList.add('open'); searchInput.focus(); } });
-layersToggle.addEventListener('click', () => { const willOpen = !layersPanel.classList.contains('open'); closeAllPanels(); if (willOpen) layersPanel.classList.add('open'); });
+layersToggle.addEventListener('click', () => {
+  const willOpen = !layersPanel.classList.contains('open');
+  closeAllPanels();
+  if (willOpen) {
+    layersPanel.classList.add('open');
+    buildLayerListIfNeeded();
+  }
+});
 statusToggle.addEventListener('click', () => { const willOpen = !statusPanel.classList.contains('open'); closeAllPanels(); if (willOpen) statusPanel.classList.add('open'); });
 searchClose.addEventListener('click', () => searchPanel.classList.remove('open'));
 searchMinimize.addEventListener('click', () => searchPanel.classList.remove('open'));
