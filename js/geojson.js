@@ -1,19 +1,64 @@
 function buildLayerList() {
   layersListEl.innerHTML = '';
+
   Object.values(layerRegistry).forEach(layerInfo => {
-    const block = document.createElement('div'); block.className = 'layer-block';
-    block.innerHTML = `<div class="layer-row"><div class="layer-title">${escapeHtml(layerInfo.label)} (${layerInfo.items.length})</div><div class="layer-tools"><button data-action="toggle-layer">${map.hasLayer(layerInfo.layer) ? 'הסתר' : 'הצג'}</button><button data-action="toggle-items">יעלים</button></div></div><div class="layer-items"></div>`;
+    const block = document.createElement('div');
+    block.className = 'layer-block';
+
+    block.innerHTML = `
+      <div class="layer-row">
+        <div class="layer-title">${escapeHtml(layerInfo.label)} (${layerInfo.items.length})</div>
+        <div class="layer-tools">
+          <button data-action="toggle-layer">${map.hasLayer(layerInfo.layer) ? 'הסתר' : 'הצג'}</button>
+          <button data-action="toggle-items">יעלים</button>
+        </div>
+      </div>
+      <div class="layer-items" data-built="0"></div>`;
+
     const itemsDiv = block.querySelector('.layer-items');
-    layerInfo.items.forEach(item => {
-      const row = document.createElement('div'); row.className = 'layer-item'; row.textContent = (typeof buildLayerItemDisplayText === 'function') ? buildLayerItemDisplayText(item) : (item.name || 'ללא שם');
-      row.addEventListener('click', () => { ensureLayerVisible(layerInfo.label); map.setView([item.lat, item.lon], DEFAULT_ZOOM_ON_SEARCH); item.marker.openPopup(); });
-      itemsDiv.appendChild(row);
-    });
+
+    function buildLayerItemsOnDemand() {
+      if (itemsDiv.dataset.built === '1') return;
+
+      const fragment = document.createDocumentFragment();
+      layerInfo.items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'layer-item';
+
+        if (typeof buildLayerItemDisplayText === 'function') {
+          row.textContent = buildLayerItemDisplayText(item);
+        } else {
+          row.textContent = item.name || 'ללא שם';
+        }
+
+        row.addEventListener('click', () => {
+          ensureLayerVisible(layerInfo.label);
+          map.setView([item.lat, item.lon], DEFAULT_ZOOM_ON_SEARCH);
+          item.marker.openPopup();
+        });
+
+        fragment.appendChild(row);
+      });
+
+      itemsDiv.appendChild(fragment);
+      itemsDiv.dataset.built = '1';
+    }
+
     block.querySelector('[data-action="toggle-layer"]').addEventListener('click', (e) => {
-      if (map.hasLayer(layerInfo.layer)) { map.removeLayer(layerInfo.layer); e.target.textContent = 'הצג'; }
-      else { map.addLayer(layerInfo.layer); e.target.textContent = 'הסתר'; }
+      if (map.hasLayer(layerInfo.layer)) {
+        map.removeLayer(layerInfo.layer);
+        e.target.textContent = 'הצג';
+      } else {
+        map.addLayer(layerInfo.layer);
+        e.target.textContent = 'הסתר';
+      }
     });
-    block.querySelector('[data-action="toggle-items"]').addEventListener('click', () => itemsDiv.classList.toggle('open'));
+
+    block.querySelector('[data-action="toggle-items"]').addEventListener('click', () => {
+      buildLayerItemsOnDemand();
+      itemsDiv.classList.toggle('open');
+    });
+
     layersListEl.appendChild(block);
   });
 }
@@ -68,8 +113,7 @@ function addFeatureToLayer(feature, layerInfo) {
 
   const marker = L.marker(latlng, { icon: createMarkerIcon(name) });
 
-  // פופאפ עצל: Leaflet מקבל bindPopup רגיל, ולכן פתיחה חוזרת, חיפוש ורשימת יעלים עובדים כרגיל.
-  // ה-HTML הכבד של הפופאפ נבנה רק בפעם הראשונה שהפופאפ באמת נפתח.
+  // פופאפ עצל: ה-HTML הכבד נבנה רק בפעם הראשונה שהפופאפ באמת נפתח.
   marker.bindPopup(function () {
     if (!marker._cachedPopupHtml) {
       const descriptionHtml = normalizeDescriptionHtml(rawDescriptionHtml);
@@ -142,8 +186,8 @@ function buildLayerListIfNeeded(force = false) {
 function updateLayerListCountsOnly() {
   markLayerListDirty();
 
-  // סעיף 2: לא בונים את רשימת היעלים בזמן טעינת המפה.
-  // אם החלונית כבר פתוחה, מעדכנים אותה; אחרת הבנייה תתבצע רק בפתיחה.
+  // לא בונים את רשימת היעלים בזמן טעינת המפה.
+  // אם החלונית כבר פתוחה, מעדכנים רק את מבנה השכבות; שורות היעלים עצמן ייבנו בעת פתיחת השכבה.
   if (layersPanel.classList.contains('open')) {
     buildLayerListIfNeeded(true);
   }
@@ -212,8 +256,12 @@ async function loadRestInBackground(statusLines) {
   }
 
   isRestLoadingComplete = true;
+
+  if (typeof setWorldZoomButtonEnabled === 'function') {
+    setWorldZoomButtonEnabled(true);
+  }
+
   updateLayerListCountsOnly();
-  if (typeof setWorldZoomButtonEnabled === 'function') setWorldZoomButtonEnabled(true);
   setStatus(buildStatusText(true, statusLines));
 }
 
@@ -223,6 +271,7 @@ async function initMap() {
       addWorldZoomButton(map, { position: 'topleft', title: 'זום עולמי', text: '🌍' });
       setWorldZoomButtonEnabled(false);
     }
+
     const statusLines = await loadIsraelFirst();
 
     // לא מחכים ל-rest. המפה כבר מוצגת עם נקודות ישראל.
