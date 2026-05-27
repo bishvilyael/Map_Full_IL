@@ -1,0 +1,25 @@
+Map_Full_IL priority loading
+
+קבצים ששונו:
+- config.js
+- geojson.js
+
+אין שינוי ב-Map_Shared.
+
+מה השתנה:
+1. config.js כבר לא מפנה אל json/<label>.geojson.
+   הוא מפנה רק אל:
+   - json/<label>_israel.geojson
+   - json/<label>_rest.geojson
+
+2. geojson.js:
+   - טוען קודם את כל קבצי _israel מכל השכבות.
+   - מציג את המפה ואת רשימת השכבות.
+   - אחר כך טוען את כל קבצי _rest בהדרגה וברקע.
+   - שני החלקים נכנסים לאותה שכבת Leaflet מקורית לפי label.
+   - הפופאפ נבנה רק בזמן לחיצה ראשונה על נקודה.
+
+בדיקה אחרי העלאה:
+- ב-Network בדפדפן אמורים להופיע קודם קבצי *_israel.geojson.
+- אחר כך יופיעו קבצי *_rest.geojson.
+- לא אמורה להיות בקשה אל json/0.geojson או json/1-1499.geojson וכו'.

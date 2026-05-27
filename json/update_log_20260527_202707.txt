@@ -29,3 +29,38 @@ Full map title: מפת יעלים מצטברת - עדכון 27/05/2026
 Full map total points: 4280
 Point summary file: G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL\points-summary.json
 Split Full Israel/Rest mode: LinksVideos and Map_Full were not updated.
+Git commit: [main e7eacdf] Update Map_Full_IL GeoJSON 2026-05-27 20:27:17
+ 23 files changed, 50386 insertions(+), 28742 deletions(-)
+ create mode 100644 json/0_israel.geojson
+ create mode 100644 json/0_rest.geojson
+ rename json/{1-1499.geojson => 1-1499_israel.geojson} (65%)
+ create mode 100644 json/1-1499_rest.geojson
+ rename json/{1500-2999.geojson => 1500-2999_israel.geojson} (58%)
+ create mode 100644 json/1500-2999_rest.geojson
+ create mode 100644 json/3000-4499_israel.geojson
+ rename json/{3000-4499.geojson => 3000-4499_rest.geojson} (51%)
+ delete mode 100644 json/4500-5999.geojson
+ create mode 100644 json/4500-5999_israel.geojson
+ rename json/{0.geojson => 4500-5999_rest.geojson} (52%)
+ delete mode 100644 json/6000-7499.geojson
+ create mode 100644 json/6000-7499_israel.geojson
+ create mode 100644 json/6000-7499_rest.geojson
+ delete mode 100644 json/7500-8999.geojson
+ create mode 100644 json/7500-8999_israel.geojson
+ create mode 100644 json/7500-8999_rest.geojson
+ delete mode 100644 json/9000-10499.geojson
+ create mode 100644 json/9000-10499_israel.geojson
+ create mode 100644 json/9000-10499_rest.geojson
+ create mode 100644 json/update_log_20260527_202707.txt
+Git push: git.exe : To https://github.com/bishvilyael/Map_Full_IL.git
+At G:\My Drive\Sfirat_Yeelim\Exports\Tools\KML_to_Ripo_IL\KML_to_Ripo.ps1:574 char:19
++         $output = & $GitPath @Arguments 2>&1 | Out-String
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (To https://gith...Map_Full_IL.git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   a0bddae..e7eacdf  main -> main
+Git: add/commit/push completed for G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL
+Finished: 2026-05-27 20:27:21
+Success : 8
+Failed  : 0
