@@ -23,3 +23,29 @@ Full map title: מפת יעלים מצטברת - עדכון 27/05/2026
 Full map total points: 4280
 Point summary file: G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL\points-summary.json
 Split Full Israel/Rest mode: LinksVideos and Map_Full were not updated.
+Git add: git.exe : warning: in the working copy of 'json/4500-5999.geojson', LF will be replaced by CRLF the next time Git 
+touches it
+At G:\My Drive\Sfirat_Yeelim\Exports\Tools\KML_to_Ripo_IL\KML_to_Ripo.ps1:574 char:19
++         $output = & $GitPath @Arguments 2>&1 | Out-String
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: in the... Git touches it:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+warning: in the working copy of 'json/6000-7499.geojson', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'json/7500-8999.geojson', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'json/9000-10499.geojson', LF will be replaced by CRLF the next time Git touches it
+Git commit: [main a0bddae] Update Map_Full_IL GeoJSON 2026-05-27 20:23:55
+ 2 files changed, 26 insertions(+), 1 deletion(-)
+ create mode 100644 json/update_log_20260527_202348.txt
+Git push: git.exe : To https://github.com/bishvilyael/Map_Full_IL.git
+At G:\My Drive\Sfirat_Yeelim\Exports\Tools\KML_to_Ripo_IL\KML_to_Ripo.ps1:574 char:19
++         $output = & $GitPath @Arguments 2>&1 | Out-String
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (To https://gith...Map_Full_IL.git:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   ba782e1..a0bddae  main -> main
+Git: add/commit/push completed for G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL
+Finished: 2026-05-27 20:23:58
+Success : 8
+Failed  : 0
