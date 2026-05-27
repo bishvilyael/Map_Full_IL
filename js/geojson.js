@@ -1,361 +1,263 @@
 function buildLayerList() {
   layersListEl.innerHTML = '';
-
   Object.values(layerRegistry).forEach(layerInfo => {
-    const block = document.createElement('div');
-    block.className = 'layer-block';
-
-    block.innerHTML = `
-      <div class="layer-row">
-        <div class="layer-title">${escapeHtml(layerInfo.label)} (${layerInfo.items.length})</div>
-        <div class="layer-tools">
-          <button data-action="toggle-layer">${map.hasLayer(layerInfo.layer) ? 'הסתר' : 'הצג'}</button>
-          <button data-action="toggle-items">יעלים</button>
-        </div>
-      </div>
-      <div class="layer-items" data-built="0"></div>`;
-
+    const block = document.createElement('div'); block.className = 'layer-block';
+    block.innerHTML = `<div class="layer-row"><div class="layer-title">${escapeHtml(layerInfo.label)} (${layerInfo.items.length})</div><div class="layer-tools"><button data-action="toggle-layer">${map.hasLayer(layerInfo.layer) ? 'הסתר' : 'הצג'}</button><button data-action="toggle-items">יעלים</button></div></div><div class="layer-items"></div>`;
     const itemsDiv = block.querySelector('.layer-items');
-
-    function buildLayerItemsOnDemand() {
-      if (itemsDiv.dataset.built === '1') return;
-
-      const fragment = document.createDocumentFragment();
-
-      if (typeof buildLayerItemsStickyHeader === 'function') {
-        fragment.appendChild(buildLayerItemsStickyHeader());
-      }
-
-      const openItem = (item) => {
-        ensureLayerVisible(layerInfo.label);
-        map.setView([item.lat, item.lon], DEFAULT_ZOOM_ON_SEARCH);
-        item.marker.openPopup();
-      };
-
-      const createItemRow = (item, options) => {
-        let row;
-        if (typeof buildLayerItemRowElement === 'function') {
-          row = buildLayerItemRowElement(item, options || {});
-        } else {
-          row = document.createElement('div');
-          row.className = 'layer-item';
-          row.textContent = item.name || '';
-        }
-
-        row.addEventListener('click', () => openItem(item));
-        return row;
-      };
-
-      if (typeof getLayerItemFields === 'function' && typeof buildLayerGroupSummaryRowElement === 'function') {
-        const groups = new Map();
-
-        layerInfo.items.forEach(item => {
-          const fields = getLayerItemFields(item);
-          const number = String(fields.number || item.name || '').replace(/^#\s*/, '').trim();
-          const key = number || `__empty_${groups.size}`;
-
-          if (!groups.has(key)) {
-            groups.set(key, {
-              number,
-              displayName: fields.displayName || '',
-              items: []
-            });
-          }
-
-          const group = groups.get(key);
-          if (!group.displayName && fields.displayName) group.displayName = fields.displayName;
-          group.items.push(item);
-        });
-
-        groups.forEach(group => {
-          if (group.items.length === 1) {
-            fragment.appendChild(createItemRow(group.items[0]));
-            return;
-          }
-
-          const detailsDiv = document.createElement('div');
-          detailsDiv.className = 'layer-group-details';
-
-          group.items.forEach(item => {
-            detailsDiv.appendChild(createItemRow(item, { detail: true }));
-          });
-
-          const summaryRow = buildLayerGroupSummaryRowElement(group, () => {
-            detailsDiv.classList.toggle('open');
-            return detailsDiv.classList.contains('open');
-          });
-
-          fragment.appendChild(summaryRow);
-          fragment.appendChild(detailsDiv);
-        });
-      } else {
-        layerInfo.items.forEach(item => {
-          fragment.appendChild(createItemRow(item));
-        });
-      }
-
-      itemsDiv.appendChild(fragment);
-      itemsDiv.dataset.built = '1';
-    }
-
+    layerInfo.items.forEach(item => {
+      const row = document.createElement('div'); row.className = 'layer-item'; row.textContent = item.name || 'ללא שם';
+      row.addEventListener('click', () => { ensureLayerVisible(layerInfo.label); map.setView([item.lat, item.lon], DEFAULT_ZOOM_ON_SEARCH); item.marker.openPopup(); });
+      itemsDiv.appendChild(row);
+    });
     block.querySelector('[data-action="toggle-layer"]').addEventListener('click', (e) => {
-      if (map.hasLayer(layerInfo.layer)) {
-        map.removeLayer(layerInfo.layer);
-        e.target.textContent = 'הצג';
-      } else {
-        map.addLayer(layerInfo.layer);
-        e.target.textContent = 'הסתר';
-      }
+      if (map.hasLayer(layerInfo.layer)) { map.removeLayer(layerInfo.layer); e.target.textContent = 'הצג'; }
+      else { map.addLayer(layerInfo.layer); e.target.textContent = 'הסתר'; }
     });
-
-    block.querySelector('[data-action="toggle-items"]').addEventListener('click', () => {
-      buildLayerItemsOnDemand();
-      itemsDiv.classList.toggle('open');
-    });
-
+    block.querySelector('[data-action="toggle-items"]').addEventListener('click', () => itemsDiv.classList.toggle('open'));
     layersListEl.appendChild(block);
   });
 }
 
-function waitForBrowser(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function getOrCreateLayerInfo(layerLabel, visible) {
-  if (layerRegistry[layerLabel]) {
-    return layerRegistry[layerLabel];
-  }
-
-  const layerInfo = {
-    layer: L.layerGroup(),
-    count: 0,
-    label: layerLabel,
-    items: [],
-    israelCount: 0,
-    restCount: 0,
-    israelLoaded: false,
-    restLoaded: false
-  };
-
-  overlays[layerLabel] = layerInfo.layer;
-  layerRegistry[layerLabel] = layerInfo;
-
-  if (visible) {
-    layerInfo.layer.addTo(map);
-  }
-
-  return layerInfo;
-}
-
-async function fetchGeoJson(filePath) {
+async function loadGeoJsonLayer(filePath, layerLabel) {
   const response = await fetch(filePath);
   if (!response.ok) throw new Error(`Failed to load ${filePath} (HTTP ${response.status})`);
-
   const data = await response.json();
   if (!data || !Array.isArray(data.features)) throw new Error(`Invalid GeoJSON in ${filePath}`);
 
-  return data;
-}
+  const layerGroup = L.layerGroup();
+  const layerItems = [];
+  let markerCount = 0;
 
-function addFeatureToLayer(feature, layerInfo) {
-  const latlng = getFeatureLatLng(feature);
-  if (!latlng) return false;
-
-  const props = feature.properties || {};
-  const name = getFeatureName(props);
-  const rawDescriptionHtml = getFeatureDescription(props);
-
-  const marker = L.marker(latlng, { icon: createMarkerIcon(name) });
-
-  // פופאפ עצל: ה-HTML הכבד נבנה רק בפעם הראשונה שהפופאפ באמת נפתח.
-  marker.bindPopup(function () {
-    if (!marker._cachedPopupHtml) {
-      const descriptionHtml = normalizeDescriptionHtml(rawDescriptionHtml);
-      marker._cachedPopupHtml = buildStandardPopupHtml(name, descriptionHtml);
-    }
-    return marker._cachedPopupHtml;
-  }, {
-    maxWidth: 340,
-    minWidth: 220
-  });
-
-  layerInfo.layer.addLayer(marker);
-  allBounds.push([latlng.lat, latlng.lng]);
-
-  const descriptionText = stripHtml(rawDescriptionHtml);
-  const searchText = `${name} ${descriptionText} ${layerInfo.label}`;
-  const itemObj = {
-    name,
-    layerLabel: layerInfo.label,
-    lat: latlng.lat,
-    lon: latlng.lng,
-    marker,
-    props,
-    rawDescriptionHtml,
-    descriptionText,
-    searchText,
-    searchTextLower: searchText.toLowerCase()
-  };
-
-  searchableItems.push(itemObj);
-  layerInfo.items.push(itemObj);
-
-  layerInfo.count++;
-  totalMarkers++;
-
-  return true;
-}
-
-async function loadGeoJsonPart(filePath, layerLabel, visible, partName) {
-  const layerInfo = getOrCreateLayerInfo(layerLabel, visible);
-  const data = await fetchGeoJson(filePath);
-
-  let addedCount = 0;
   data.features.forEach((feature) => {
-    if (addFeatureToLayer(feature, layerInfo)) {
-      addedCount++;
-    }
+    const latlng = getFeatureLatLng(feature);
+    if (!latlng) return;
+
+    const props = feature.properties || {};
+    const name = getFeatureName(props);
+    const descriptionHtml = normalizeDescriptionHtml(getFeatureDescription(props));
+    const descriptionText = stripHtml(descriptionHtml);
+
+    const marker = L.marker(latlng, { icon: createMarkerIcon(name) });
+	const popupHtml =
+		  buildStandardPopupHtml(name, descriptionHtml);
+
+		marker.bindPopup(popupHtml, {
+		  maxWidth: 340,
+		  minWidth: 220
+	});
+	
+    layerGroup.addLayer(marker);
+    allBounds.push([latlng.lat, latlng.lng]);
+    markerCount++;
+
+    const searchText = `${name} ${descriptionText} ${layerLabel}`;
+    const itemObj = { name, layerLabel, lat: latlng.lat, lon: latlng.lng, marker, descriptionText, searchText, searchTextLower: searchText.toLowerCase() };
+    searchableItems.push(itemObj); layerItems.push(itemObj);
   });
 
-  if (partName === 'israel') {
-    layerInfo.israelCount += addedCount;
-    layerInfo.israelLoaded = true;
-  } else if (partName === 'rest') {
-    layerInfo.restCount += addedCount;
-    layerInfo.restLoaded = true;
-  }
-
-  return { layerInfo, addedCount };
-}
-
-function markLayerListDirty() {
-  isLayerListDirty = true;
-}
-
-function buildLayerListIfNeeded(force = false) {
-  if (!force && isLayerListBuilt && !isLayerListDirty) return;
-  buildLayerList();
-  isLayerListBuilt = true;
-  isLayerListDirty = false;
-}
-
-function updateLayerListCountsOnly() {
-  markLayerListDirty();
-
-  // לא בונים את רשימת היעלים בזמן טעינת המפה.
-  // אם החלונית כבר פתוחה, מעדכנים רק את מבנה השכבות; שורות היעלים עצמן ייבנו בעת פתיחת השכבה.
-  if (layersPanel.classList.contains('open')) {
-    buildLayerListIfNeeded(true);
-  }
-}
-
-function buildStatusText(isBackgroundDone, statusLines) {
-  const title = isBackgroundDone
-    ? 'טעינת כל הנקודות הושלמה'
-    : 'הנקודות נטענות ברקע...';
-
-  return `${title}
-נטענו ${loadedLayers} שכבות
-סה"כ ${totalMarkers} נקודות
-
-${statusLines.join('\n')}`;
-}
-
-async function loadIsraelFirst() {
-  const results = await Promise.allSettled(
-    GEOJSON_FILES.map(item => loadGeoJsonPart(item.israelFile, item.label, item.visible, 'israel'))
-  );
-
-  loadedLayers = 0;
-  const statusLines = [];
-
-  results.forEach((result, index) => {
-    const item = GEOJSON_FILES[index];
-
-    if (result.status === 'fulfilled') {
-      const layerInfo = result.value.layerInfo;
-      loadedLayers++;
-      statusLines.push(`${item.label}: ${layerInfo.count} נקודות`);
-    } else {
-      statusLines.push(`${item.label}: שגיאה בטעינה`);
-      console.error(`Israel layer load failed: ${item.israelFile}`, result.reason);
-    }
-  });
-
-  markLayerListDirty();
-  fitIsraelView();
-  setStatus(buildStatusText(false, statusLines));
-
-  return statusLines;
-}
-
-async function loadRestInBackground(statusLines) {
-  for (const item of GEOJSON_FILES) {
-    try {
-      const result = await loadGeoJsonPart(item.restFile, item.label, item.visible, 'rest');
-      const layerInfo = result.layerInfo;
-
-      const lineIndex = statusLines.findIndex(line => line.startsWith(`${item.label}:`));
-      const newLine = `${item.label}: ${layerInfo.count} נקודות`;
-      if (lineIndex >= 0) statusLines[lineIndex] = newLine;
-      else statusLines.push(newLine);
-
-      updateLayerListCountsOnly();
-      setStatus(buildStatusText(false, statusLines));
-    } catch (err) {
-      statusLines.push(`${item.label}: שגיאה בטעינה ברקע`);
-      console.error(`Rest layer load failed: ${item.restFile}`, err);
-      setStatus(buildStatusText(false, statusLines));
-    }
-
-    await waitForBrowser(BACKGROUND_REST_LOAD_DELAY_MS);
-  }
-
-  isRestLoadingComplete = true;
-
-  if (typeof setWorldZoomBounds === 'function') {
-    setWorldZoomBounds(allBounds);
-  }
-
-  if (typeof setWorldZoomButtonEnabled === 'function') {
-    setWorldZoomButtonEnabled(true);
-  }
-
-  updateLayerListCountsOnly();
-  setStatus(buildStatusText(true, statusLines));
+  return { layer: layerGroup, count: markerCount, label: layerLabel, items: layerItems };
 }
 
 async function initMap() {
   try {
-    if (typeof initHeaderWorldZoomButton === 'function') {
-      initHeaderWorldZoomButton(map, 'worldZoomBtn');
-      setWorldZoomButtonEnabled(false);
-    }
-
-    const statusLines = await loadIsraelFirst();
-
-    // לא מחכים ל-rest. המפה כבר מוצגת עם נקודות ישראל.
-    setTimeout(() => {
-      loadRestInBackground(statusLines).catch(err => {
-        console.error(err);
-        setStatus('שגיאה בטעינת הנקודות ברקע: ' + err.message);
-      });
-    }, 0);
+    const results = await Promise.allSettled(GEOJSON_FILES.map(item => loadGeoJsonLayer(item.file, item.label)));
+    let statusLines = [];
+    results.forEach((result, index) => {
+      const item = GEOJSON_FILES[index];
+      if (result.status === 'fulfilled') {
+        const layerInfo = result.value; overlays[item.label] = layerInfo.layer; layerRegistry[item.label] = layerInfo;
+        if (item.visible) layerInfo.layer.addTo(map); totalMarkers += layerInfo.count; loadedLayers++; statusLines.push(`${item.label}: ${layerInfo.count} נקודות`);
+      } else { statusLines.push(`${item.label}: שגיאה`); console.error(`Layer load failed: ${item.file}`, result.reason); }
+    });
+    buildLayerList(); 
+	fitIsraelView();
+    setStatus(`נטענו ${loadedLayers} שכבות\nסה"כ ${totalMarkers} נקודות\n\n${statusLines.join('\n')}`);
   } catch (err) {
-    console.error(err);
-    setStatus('שגיאה כללית בטעינת השכבות');
-    alert('שגיאה בטעינת השכבות: ' + err.message);
+    console.error(err); setStatus('שגיאה כללית בטעינת השכבות'); alert('שגיאה בטעינת השכבות: ' + err.message);
   }
 }
-function createExpandToggle(isOpen = false) {
-  const btn = document.createElement('button');
-  btn.className = 'tree-toggle-btn';
-  btn.textContent = isOpen ? '▼' : '▶';
 
-  btn.addEventListener('click', () => {
-    const open = btn.textContent === '▼';
-    btn.textContent = open ? '▶' : '▼';
+/*
+  Local layer-list rendering helpers.
+  These functions intentionally override same-name helpers from Map_Shared,
+  so this map can use the compact tree-style list without changing existing shared files.
+*/
+
+function layerListPlainTextFromHtml(html) {
+  const temp = document.createElement('div');
+  temp.innerHTML = String(html || '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(div|p|li|tr|td|span)>/gi, '\n');
+  return (temp.textContent || temp.innerText || '')
+    .replace(/\u00a0/g, ' ')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n[ \t]+/g, '\n')
+    .trim();
+}
+
+function normalizeLayerListValue(value) {
+  return String(value || '')
+    .replace(/\s+/g, ' ')
+    .replace(/^[,:;\-\s]+/, '')
+    .replace(/[,:;\-\s]+$/, '')
+    .trim();
+}
+
+function getPropByNames(props, names) {
+  if (!props) return '';
+  const keys = Object.keys(props);
+  for (const wanted of names) {
+    const exact = keys.find(k => k.toLowerCase() === String(wanted).toLowerCase());
+    if (exact && props[exact] != null && String(props[exact]).trim() !== '') return props[exact];
+  }
+  return '';
+}
+
+function extractLayerListLabeledValue(text, labels) {
+  const source = String(text || '');
+  const stopLabels = [
+    'שם', 'name',
+    'אתר', 'מקום', 'נקודה', 'site', 'place', 'point',
+    'תאריך', 'date', 'thedate',
+    'id', 'מזהה', 'badge'
+  ];
+
+  for (const label of labels) {
+    const escaped = String(label).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const lineRegex = new RegExp(`(^|\\n)\\s*${escaped}\\s*:?\\s*([^\\n|]+)`, 'i');
+    const lineMatch = source.match(lineRegex);
+    if (lineMatch) {
+      let value = lineMatch[2] || '';
+      for (const stop of stopLabels) {
+        if (stop.toLowerCase() === String(label).toLowerCase()) continue;
+        const stopEscaped = String(stop).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        value = value.replace(new RegExp(`\\s+${stopEscaped}\\s*:?[\\s\\S]*$`, 'i'), '');
+      }
+      return normalizeLayerListValue(value);
+    }
+
+    const inlineRegex = new RegExp(`${escaped}\\s*:?\\s*([^|\\n]+)`, 'i');
+    const inlineMatch = source.match(inlineRegex);
+    if (inlineMatch) {
+      let value = inlineMatch[1] || '';
+      for (const stop of stopLabels) {
+        if (stop.toLowerCase() === String(label).toLowerCase()) continue;
+        const stopEscaped = String(stop).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        value = value.replace(new RegExp(`\\s+${stopEscaped}\\s*:?[\\s\\S]*$`, 'i'), '');
+      }
+      return normalizeLayerListValue(value);
+    }
+  }
+
+  return '';
+}
+
+function formatLayerListDate(value) {
+  const text = String(value || '').trim();
+  const match = text.match(/(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})/);
+  if (!match) return '';
+
+  const day = parseInt(match[1], 10);
+  const month = parseInt(match[2], 10);
+  let year = parseInt(match[3], 10);
+
+  if (!day || !month || !year) return '';
+  if (year >= 2000) year = year % 100;
+  if (year >= 1900) year = year % 100;
+
+  return `${day}.${month}.${year}`;
+}
+
+function getLayerItemFields(item) {
+  const props = item.props || {};
+  const text = layerListPlainTextFromHtml(item.rawDescriptionHtml || item.descriptionText || '');
+
+  const rawNumber =
+    getPropByNames(props, ['Badge', 'badge', 'Number', 'number', 'מספר', 'יעל']) ||
+    item.name ||
+    '';
+
+  const number = normalizeLayerListValue(rawNumber).replace(/^#\s*/, '');
+
+  let displayName =
+    getPropByNames(props, ['Name', 'name_he', 'שם']) ||
+    extractLayerListLabeledValue(text, ['שם', 'Name']);
+
+  let site =
+    getPropByNames(props, ['Site', 'site', 'Place', 'place', 'Point', 'point', 'אתר', 'מקום', 'נקודה']) ||
+    extractLayerListLabeledValue(text, ['אתר', 'מקום', 'נקודה', 'Point', 'Place', 'Site']);
+
+  let dateValue =
+    getPropByNames(props, ['Date', 'date', 'TheDate', 'thedate', 'תאריך']) ||
+    extractLayerListLabeledValue(text, ['תאריך', 'Date', 'TheDate']) ||
+    text;
+
+  displayName = normalizeLayerListValue(displayName);
+  site = normalizeLayerListValue(site);
+  const date = formatLayerListDate(dateValue);
+
+  return { number, displayName, site, date };
+}
+
+function buildLayerItemsStickyHeader() {
+  const header = document.createElement('div');
+  header.className = 'layer-items-sticky-header layer-item-grid';
+  header.innerHTML = `
+    <div>יעל</div>
+    <div>שם</div>
+    <div>אתר</div>
+    <div>תאריך</div>`;
+  return header;
+}
+
+function buildLayerItemRowElement(item, options = {}) {
+  const fields = getLayerItemFields(item);
+  const row = document.createElement('div');
+  row.className = options.detail ? 'layer-item layer-item-detail layer-item-grid' : 'layer-item layer-item-grid';
+
+  row.innerHTML = `
+    <div class="layer-item-number">${escapeHtml(fields.number || '')}</div>
+    <div class="layer-item-name">${escapeHtml(fields.displayName || '')}</div>
+    <div class="layer-item-site">${escapeHtml(fields.site || '')}</div>
+    <div class="layer-item-date">${escapeHtml(fields.date || '')}</div>`;
+
+  return row;
+}
+
+function buildLayerGroupSummaryRowElement(group, onToggle) {
+  const row = document.createElement('div');
+  row.className = 'layer-group-summary-row';
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'tree-toggle-btn';
+  button.textContent = '▶';
+  button.title = 'פתח / סגור';
+
+  const number = document.createElement('span');
+  number.className = 'layer-group-number';
+  number.textContent = group.number || '';
+
+  const name = document.createElement('span');
+  name.className = 'layer-group-name';
+  name.textContent = group.displayName || '';
+
+  const count = document.createElement('span');
+  count.className = 'layer-group-count';
+  count.textContent = `(${group.items.length})`;
+
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const isOpen = onToggle();
+    button.textContent = isOpen ? '▼' : '▶';
   });
 
-  return btn;
+  row.appendChild(button);
+  row.appendChild(number);
+  row.appendChild(name);
+  row.appendChild(count);
+
+  return row;
 }
+
