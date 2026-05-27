@@ -30,7 +30,34 @@ function normalizeDescriptionHtml(html) {
   return temp.innerHTML;
 }
 
-function stripHtml(html) { const div = document.createElement('div'); div.innerHTML = html || ''; return (div.textContent || div.innerText || '').trim(); }
+function stripHtml(html) {
+  const div = document.createElement('div');
+  div.innerHTML = html || '';
+
+  // חשוב: textContent רגיל מוחק את ההפרדה של <br>/<div>/<p>,
+  // ואז קשה לחלץ שם/אתר/תאריך לרשימת השכבה.
+  div.querySelectorAll('br').forEach(el => el.replaceWith('
+'));
+  div.querySelectorAll('p, div, li, tr').forEach(el => {
+    el.insertAdjacentText('beforebegin', '
+');
+    el.insertAdjacentText('afterend', '
+');
+  });
+
+  return (div.textContent || div.innerText || '')
+    .replace(//g, '
+')
+    .replace(/
+{2,}/g, '
+')
+    .split('
+')
+    .map(x => x.trim())
+    .filter(Boolean)
+    .join('
+');
+}
 
 function createMarkerIcon(labelText) {
   return L.divIcon({

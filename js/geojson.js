@@ -21,13 +21,18 @@ function buildLayerList() {
       if (itemsDiv.dataset.built === '1') return;
 
       const fragment = document.createDocumentFragment();
-      layerInfo.items.forEach(item => {
-        const row = document.createElement('div');
-        row.className = 'layer-item';
 
-        if (typeof buildLayerItemDisplayText === 'function') {
-          row.textContent = buildLayerItemDisplayText(item);
+      if (typeof buildLayerItemsStickyHeader === 'function') {
+        fragment.appendChild(buildLayerItemsStickyHeader());
+      }
+
+      layerInfo.items.forEach(item => {
+        let row;
+        if (typeof buildLayerItemRowElement === 'function') {
+          row = buildLayerItemRowElement(item);
         } else {
+          row = document.createElement('div');
+          row.className = 'layer-item';
           row.textContent = item.name || 'ללא שם';
         }
 
@@ -136,6 +141,8 @@ function addFeatureToLayer(feature, layerInfo) {
     lat: latlng.lat,
     lon: latlng.lng,
     marker,
+    props,
+    rawDescriptionHtml,
     descriptionText,
     searchText,
     searchTextLower: searchText.toLowerCase()
@@ -267,8 +274,8 @@ async function loadRestInBackground(statusLines) {
 
 async function initMap() {
   try {
-    if (typeof addWorldZoomButton === 'function') {
-      addWorldZoomButton(map, { position: 'topleft', title: 'זום עולמי', text: '🌍' });
+    if (typeof initHeaderWorldZoomButton === 'function') {
+      initHeaderWorldZoomButton(map, 'worldZoomBtn');
       setWorldZoomButtonEnabled(false);
     }
 
