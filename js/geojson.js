@@ -347,3 +347,15 @@ async function initMap() {
     alert('שגיאה בטעינת השכבות: ' + err.message);
   }
 }
+function createExpandToggle(isOpen = false) {
+  const btn = document.createElement('button');
+  btn.className = 'tree-toggle-btn';
+  btn.textContent = isOpen ? '▼' : '▶';
+
+  btn.addEventListener('click', () => {
+    const open = btn.textContent === '▼';
+    btn.textContent = open ? '▶' : '▼';
+  });
+
+  return btn;
+}

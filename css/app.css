@@ -233,3 +233,11 @@ html, body { height: 100%; margin: 0; font-family: Arial, sans-serif; }
   height: auto;
   display: block;
 }
+.tree-toggle-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:12px;
+  padding:0 4px;
+  color:#555;
+}
