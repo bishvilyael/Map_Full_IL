@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>מפת יעלים מצטברת</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="https://bishvilyael.github.io/Map_Shared/css/marker-base.css" />
+</head>
+<body>
+<div id="map"></div>
+
+<div class="map-header">
+  <div style="display:flex; flex-direction:column; align-items:center; gap:6px; pointer-events:auto;">
+    
+    <div class="map-header-box">
+      <img class="header-icon" src="icons/header-right.png" alt="">
+      <span id="mapTitleText"></span>
+      <img class="header-icon" src="icons/header-right.png" alt="">
+    </div>
+
+    <a href="https://bishvilyael.github.io/Map_Partial" 
+       class="map-switch-btn">
+       מעבר למפה תקופתית
+    </a>
+
+  </div>
+</div>
+
+<div class="mobile-tools">
+  <button id="searchToggle" class="tool-btn" title="חיפוש">🔍</button>
+  <button id="layersToggle" class="tool-btn" title="רשימת יעלים">📋</button>
+  <button id="statusToggle" class="tool-btn" title="מידע">ℹ</button>
+</div>
+
+<div id="searchPanel" class="search-panel panel-box">
+  <div id="searchHeader" class="search-title-row search-header">
+    <div class="search-title-main">
+      <div class="panel-title">חיפוש במפה</div>
+      <div class="search-mode-inline">
+        <label><input id="modePoints" name="searchMode" type="radio" value="points" checked> חיפוש יעל</label>
+        <label><input id="modeArea" name="searchMode" type="radio" value="area"> חיפוש אזור</label>
+      </div>
+    </div>
+    <div class="search-header-buttons">
+      <button id="searchMinimize" class="search-mini-btn" title="מזער">—</button>
+      <button id="searchClose" class="search-mini-btn" title="סגור">✕</button>
+    </div>
+  </div>
+  <div class="search-input-row">
+    <input id="searchInput" type="text" placeholder="חיפוש לפי שם, Badge, מזהה, תאריך..." />
+    <button id="searchActionBtn" class="search-action-btn" type="button">חפש</button>
+  </div>
+  <label id="exactSearchLabel" class="search-exact"><input id="exactSearch" type="checkbox" /> חיפוש מדויק</label>
+  <div id="searchResults" class="search-results"></div>
+</div>
+
+<div id="layersList" class="layers-list-panel panel-box">
+  <div class="panel-header">
+    <div class="panel-title">רשימת יעלים ממויינת</div>
+    <button id="layersClose" class="panel-close-btn" title="סגור">✕</button>
+  </div>
+  <div id="layersListBody"></div>
+</div>
+
+<div id="status" class="status-box panel-box">
+  <div class="panel-header">
+    <div class="panel-title">מידע</div>
+    <button id="statusClose" class="panel-close-btn" title="סגור">✕</button>
+  </div>
+  <div id="statusBody">טוען שכבות...</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/config.js"></script>
+<script src="js/state.js"></script>
+
+<script src="https://bishvilyael.github.io/Map_Shared/js/dom.js"></script>
+<script src="https://bishvilyael.github.io/Map_Shared/js/pre_defined_arias.js"></script>
+
+<script src="js/title.js"></script>
+
+<script src="https://bishvilyael.github.io/Map_Shared/js/helpers-common.js"></script>
+<script src="js/helpers.js"></script>
+<script src="https://bishvilyael.github.io/Map_Shared/js/helpers-Full_Partial.js"></script>
+
+
+<script src="js/search.js"></script>
+<script src="js/geojson.js"></script>
+<script src="js/ui.js"></script>
+
+<script src="https://bishvilyael.github.io/Map_Shared/js/map-start-view.js"></script>
+<script src="https://bishvilyael.github.io/Map_Shared/js/map-tools.js"></script>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+loadMapTitle();
+initMap();
