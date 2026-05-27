@@ -5,7 +5,7 @@ function buildLayerList() {
     block.innerHTML = `<div class="layer-row"><div class="layer-title">${escapeHtml(layerInfo.label)} (${layerInfo.items.length})</div><div class="layer-tools"><button data-action="toggle-layer">${map.hasLayer(layerInfo.layer) ? 'הסתר' : 'הצג'}</button><button data-action="toggle-items">יעלים</button></div></div><div class="layer-items"></div>`;
     const itemsDiv = block.querySelector('.layer-items');
     layerInfo.items.forEach(item => {
-      const row = document.createElement('div'); row.className = 'layer-item'; row.textContent = item.name || 'ללא שם';
+      const row = document.createElement('div'); row.className = 'layer-item'; row.textContent = (typeof buildLayerItemDisplayText === 'function') ? buildLayerItemDisplayText(item) : (item.name || 'ללא שם');
       row.addEventListener('click', () => { ensureLayerVisible(layerInfo.label); map.setView([item.lat, item.lon], DEFAULT_ZOOM_ON_SEARCH); item.marker.openPopup(); });
       itemsDiv.appendChild(row);
     });
@@ -213,11 +213,16 @@ async function loadRestInBackground(statusLines) {
 
   isRestLoadingComplete = true;
   updateLayerListCountsOnly();
+  if (typeof setWorldZoomButtonEnabled === 'function') setWorldZoomButtonEnabled(true);
   setStatus(buildStatusText(true, statusLines));
 }
 
 async function initMap() {
   try {
+    if (typeof addWorldZoomButton === 'function') {
+      addWorldZoomButton(map, { position: 'topleft', title: 'זום עולמי', text: '🌍' });
+      setWorldZoomButtonEnabled(false);
+    }
     const statusLines = await loadIsraelFirst();
 
     // לא מחכים ל-rest. המפה כבר מוצגת עם נקודות ישראל.
