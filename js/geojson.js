@@ -264,6 +264,10 @@ async function loadRestInBackground(statusLines) {
 
   isRestLoadingComplete = true;
 
+  if (typeof setWorldZoomBounds === 'function') {
+    setWorldZoomBounds(allBounds);
+  }
+
   if (typeof setWorldZoomButtonEnabled === 'function') {
     setWorldZoomButtonEnabled(true);
   }
