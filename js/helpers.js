@@ -36,27 +36,19 @@ function stripHtml(html) {
 
   // חשוב: textContent רגיל מוחק את ההפרדה של <br>/<div>/<p>,
   // ואז קשה לחלץ שם/אתר/תאריך לרשימת השכבה.
-  div.querySelectorAll('br').forEach(el => el.replaceWith('
-'));
+  div.querySelectorAll('br').forEach(el => el.replaceWith('\n'));
   div.querySelectorAll('p, div, li, tr').forEach(el => {
-    el.insertAdjacentText('beforebegin', '
-');
-    el.insertAdjacentText('afterend', '
-');
+    el.insertAdjacentText('beforebegin', '\n');
+    el.insertAdjacentText('afterend', '\n');
   });
 
   return (div.textContent || div.innerText || '')
-    .replace(//g, '
-')
-    .replace(/
-{2,}/g, '
-')
-    .split('
-')
+    .replace(/\r/g, '\n')
+    .replace(/\n{2,}/g, '\n')
+    .split('\n')
     .map(x => x.trim())
     .filter(Boolean)
-    .join('
-');
+    .join('\n');
 }
 
 function createMarkerIcon(labelText) {
