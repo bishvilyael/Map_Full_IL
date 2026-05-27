@@ -68,19 +68,17 @@ function addFeatureToLayer(feature, layerInfo) {
 
   const marker = L.marker(latlng, { icon: createMarkerIcon(name) });
 
-  // הפופאפ נבנה רק בזמן פתיחה ראשונה.
-  // כך לא מייצרים מראש אלפי HTML של פופאפים ותמונות.
-  marker.on('click', function () {
-    if (!marker._popupWasBuilt) {
+  // פופאפ עצל: Leaflet מקבל bindPopup רגיל, ולכן פתיחה חוזרת, חיפוש ורשימת יעלים עובדים כרגיל.
+  // ה-HTML הכבד של הפופאפ נבנה רק בפעם הראשונה שהפופאפ באמת נפתח.
+  marker.bindPopup(function () {
+    if (!marker._cachedPopupHtml) {
       const descriptionHtml = normalizeDescriptionHtml(rawDescriptionHtml);
-      const popupHtml = buildStandardPopupHtml(name, descriptionHtml);
-      marker.bindPopup(popupHtml, {
-        maxWidth: 340,
-        minWidth: 220
-      });
-      marker._popupWasBuilt = true;
+      marker._cachedPopupHtml = buildStandardPopupHtml(name, descriptionHtml);
     }
-    marker.openPopup();
+    return marker._cachedPopupHtml;
+  }, {
+    maxWidth: 340,
+    minWidth: 220
   });
 
   layerInfo.layer.addLayer(marker);
@@ -139,7 +137,7 @@ function updateLayerListCountsOnly() {
 function buildStatusText(isBackgroundDone, statusLines) {
   const title = isBackgroundDone
     ? 'טעינת כל הנקודות הושלמה'
-    : 'ישראל נטענה. שאר הנקודות נטענות ברקע...';
+    : 'הנקודות נטענות ברקע...';
 
   return `${title}
 נטענו ${loadedLayers} שכבות
@@ -162,9 +160,9 @@ async function loadIsraelFirst() {
     if (result.status === 'fulfilled') {
       const layerInfo = result.value.layerInfo;
       loadedLayers++;
-      statusLines.push(`${item.label}: ישראל ${layerInfo.israelCount} נקודות`);
+      statusLines.push(`${item.label}: ${layerInfo.count} נקודות`);
     } else {
-      statusLines.push(`${item.label}: שגיאה בטעינת ישראל`);
+      statusLines.push(`${item.label}: שגיאה בטעינה`);
       console.error(`Israel layer load failed: ${item.israelFile}`, result.reason);
     }
   });
@@ -183,14 +181,14 @@ async function loadRestInBackground(statusLines) {
       const layerInfo = result.layerInfo;
 
       const lineIndex = statusLines.findIndex(line => line.startsWith(`${item.label}:`));
-      const newLine = `${item.label}: ישראל ${layerInfo.israelCount}, שאר העולם ${layerInfo.restCount}, סה"כ ${layerInfo.count}`;
+      const newLine = `${item.label}: ${layerInfo.count} נקודות`;
       if (lineIndex >= 0) statusLines[lineIndex] = newLine;
       else statusLines.push(newLine);
 
       updateLayerListCountsOnly();
       setStatus(buildStatusText(false, statusLines));
     } catch (err) {
-      statusLines.push(`${item.label}: שגיאה בטעינת שאר העולם`);
+      statusLines.push(`${item.label}: שגיאה בטעינה ברקע`);
       console.error(`Rest layer load failed: ${item.restFile}`, err);
       setStatus(buildStatusText(false, statusLines));
     }
