@@ -1,0 +1,26 @@
+﻿Started: 2026-05-27 20:14:17
+Map type: Full
+Source  : G:\My Drive\Sfirat_Yeelim\Exports\KML\Full_Export\17-05-26
+Output  : G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL\json
+Count   : 8
+Split full Israel/rest: True
+OK: 0.kml -> 0.geojson
+Duplicate features removed from 0.geojson: 5
+OK: 1-1499.kml -> 1-1499.geojson
+Duplicate features removed from 1-1499.geojson: 78
+OK: 1500-2999.kml -> 1500-2999.geojson
+Duplicate features removed from 1500-2999.geojson: 54
+OK: 3000-4499.kml -> 3000-4499.geojson
+Duplicate features removed from 3000-4499.geojson: 3
+OK: 4500-5999.kml -> 4500-5999.geojson
+OK: 6000-7499.kml -> 6000-7499.geojson
+OK: 7500-8999.kml -> 7500-8999.geojson
+OK: 9000-10499.kml -> 9000-10499.geojson
+Full map title: מפת יעלים מצטברת - עדכון 27/05/2026
+Full map total points: 4280
+Point summary file: G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL\points-summary.json
+Split Full Israel/Rest mode: LinksVideos and Map_Full were not updated.
+WARNING: Git sync failed: warning: in the working copy of 'json/4500-5999.geojson', LF will be replaced by CRLF the next time Git touches it
+Finished: 2026-05-27 20:14:35
+Success : 8
+Failed  : 0
