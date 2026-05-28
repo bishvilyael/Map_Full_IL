@@ -23,7 +23,6 @@ function buildLayerList() {
       const titleParts = buildLayerHeaderTitleElement(layerInfo.label, layerInfo.items.length);
       titleDiv.appendChild(titleParts.wrap);
       layerItemsToggleBtn = titleParts.button;
-      layerItemsToggleBtn.dataset.layerListToggle = '1';
     } else {
       titleDiv.textContent = `${layerInfo.label} (${layerInfo.items.length})`;
     }
@@ -135,10 +134,6 @@ function buildLayerList() {
 
     layersListEl.appendChild(block);
   });
-
-  if (typeof initLayersPanelMasterToggle === 'function') {
-    initLayersPanelMasterToggle('layers');
-  }
 }
 
 function waitForBrowser(ms) {
@@ -351,6 +346,9 @@ async function loadRestInBackground(statusLines) {
 
 async function initMap() {
   try {
+    if (typeof initLayersPanelGlobalToggle === 'function') {
+      initLayersPanelGlobalToggle();
+    }
     if (typeof initHeaderWorldZoomButton === 'function') {
       initHeaderWorldZoomButton(map, 'worldZoomBtn');
       setWorldZoomButtonEnabled(false);
