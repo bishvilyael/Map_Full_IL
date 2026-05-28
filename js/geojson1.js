@@ -108,16 +108,10 @@ function buildLayerList() {
       }
     });
 
-    const layerItemsToggleBtn = block.querySelector('[data-action="toggle-items"]');
-
-    layerItemsToggleBtn.addEventListener('click', () => {
+    block.querySelector('[data-action="toggle-items"]').addEventListener('click', () => {
       buildLayerItemsOnDemand();
       itemsDiv.classList.toggle('open');
     });
-
-    if (typeof initLayerItemsTriangleButton === 'function') {
-      initLayerItemsTriangleButton(layerItemsToggleBtn, itemsDiv);
-    }
 
     layersListEl.appendChild(block);
   });
@@ -352,16 +346,4 @@ async function initMap() {
     setStatus('שגיאה כללית בטעינת השכבות');
     alert('שגיאה בטעינת השכבות: ' + err.message);
   }
-}
-function createExpandToggle(isOpen = false) {
-  const btn = document.createElement('button');
-  btn.className = 'tree-toggle-btn';
-  btn.textContent = isOpen ? '▼' : '▶';
-
-  btn.addEventListener('click', () => {
-    const open = btn.textContent === '▼';
-    btn.textContent = open ? '▶' : '▼';
-  });
-
-  return btn;
 }
