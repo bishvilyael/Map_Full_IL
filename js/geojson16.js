@@ -7,15 +7,25 @@ function buildLayerList() {
 
     block.innerHTML = `
       <div class="layer-row">
-        <div class="layer-title">${escapeHtml(layerInfo.label)} (${layerInfo.items.length})</div>
+        <div class="layer-title" data-role="layer-title"></div>
         <div class="layer-tools">
           <button data-action="toggle-layer">${map.hasLayer(layerInfo.layer) ? 'הסתר' : 'הצג'}</button>
-          <button data-action="toggle-items">יעלים</button>
         </div>
       </div>
-      <div class="layer-items" data-built="0"></div>`;
+      <div class="layer-items"></div>`;
 
     const itemsDiv = block.querySelector('.layer-items');
+
+    const titleDiv = block.querySelector('[data-role="layer-title"]');
+    let layerItemsToggleBtn = null;
+
+    if (typeof buildLayerHeaderTitleElement === 'function') {
+      const titleParts = buildLayerHeaderTitleElement(layerInfo.label, layerInfo.items.length);
+      titleDiv.appendChild(titleParts.wrap);
+      layerItemsToggleBtn = titleParts.button;
+    } else {
+      titleDiv.textContent = `${layerInfo.label} (${layerInfo.items.length})`;
+    }
 
     function buildLayerItemsOnDemand() {
       if (itemsDiv.dataset.built === '1') return;
@@ -108,15 +118,18 @@ function buildLayerList() {
       }
     });
 
-    const layerItemsToggleBtn = block.querySelector('[data-action="toggle-items"]');
+    if (layerItemsToggleBtn) {
+      layerItemsToggleBtn.addEventListener('click', () => {
+        buildLayerItemsOnDemand();
+        itemsDiv.classList.toggle('open');
+        if (typeof syncLayerItemsTriangleButton === 'function') {
+          syncLayerItemsTriangleButton(layerItemsToggleBtn, itemsDiv);
+        }
+      });
 
-    layerItemsToggleBtn.addEventListener('click', () => {
-      buildLayerItemsOnDemand();
-      itemsDiv.classList.toggle('open');
-    });
-
-    if (typeof initLayerItemsTriangleButton === 'function') {
-      initLayerItemsTriangleButton(layerItemsToggleBtn, itemsDiv);
+      if (typeof initLayerItemsTriangleButton === 'function') {
+        initLayerItemsTriangleButton(layerItemsToggleBtn, itemsDiv);
+      }
     }
 
     layersListEl.appendChild(block);
@@ -333,10 +346,6 @@ async function loadRestInBackground(statusLines) {
 
 async function initMap() {
   try {
-    if (typeof initLayersPanelGlobalToggle === 'function') {
-      initLayersPanelGlobalToggle();
-    }
-
     if (typeof initHeaderWorldZoomButton === 'function') {
       initHeaderWorldZoomButton(map, 'worldZoomBtn');
       setWorldZoomButtonEnabled(false);
