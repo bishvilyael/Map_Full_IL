@@ -65,6 +65,24 @@
                      {
                          "type":  "Feature",
                          "properties":  {
+                                            "Name":  "#7572",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e עירית בן אברהם\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e Forêt de Meudon\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 29-05-2026\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 4567\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3985664315060023/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3985664315060023/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1T-av-J-Jr_Bk468mLGBGa-NaD14lJ7CQ\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "tessellate":  -1,
+                                            "extrude":  0,
+                                            "visibility":  -1
+                                        },
+                         "geometry":  {
+                                          "type":  "Point",
+                                          "coordinates":  [
+                                                              2.2062,
+                                                              48.79822,
+                                                              0.0
+                                                          ]
+                                      }
+                     },
+                     {
+                         "type":  "Feature",
+                         "properties":  {
                                             "Name":  "#7579",
                                             "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e בועז רואימי\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e טרצ\u0027ין\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 23-08-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 1636\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3730105590615898/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3730105590615898/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=17YRh3Sdnm3N2Hyxi8Xx6l5nhKHR6dkLI\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
@@ -120,7 +138,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#7607",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e קן הנמרה\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 13-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2715\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=11mf22odqQ2Gh3xkHp3XTUJdcCmbSccR0\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e קן הנמרה\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 13-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 142\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=11mf22odqQ2Gh3xkHp3XTUJdcCmbSccR0\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -138,7 +156,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#7608",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e קן הנמרה\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 13-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2715\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=11mf22odqQ2Gh3xkHp3XTUJdcCmbSccR0\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e קן הנמרה\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 13-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 143\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3808704019422721/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=11mf22odqQ2Gh3xkHp3XTUJdcCmbSccR0\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -174,7 +192,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#7625",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e יואב פבריקנט\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e בטרק מסטיה - אושוגולי\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 16-08-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 1551\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3723303127962811/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3723303127962811/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1Q44fQ9BBnjj-vLgegNWZt5tpFjgbUIEq\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e יואב פבריקנט\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e בטרק מסטיה - אושוגולי\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 16-08-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 206\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3723303127962811/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3723303127962811/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1Q44fQ9BBnjj-vLgegNWZt5tpFjgbUIEq\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -246,7 +264,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#7691",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e עמק הפרפרים\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 27-08-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 1659\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1l5THB92g-0HDaUjBNFrZU65ctg0gSG0k\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e עמק הפרפרים\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 27-08-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 381\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1l5THB92g-0HDaUjBNFrZU65ctg0gSG0k\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -264,7 +282,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#7692",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e עמק הפרפרים\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 27-08-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 1659\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1l5THB92g-0HDaUjBNFrZU65ctg0gSG0k\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e עמק הפרפרים\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 27-08-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 382\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3726428690983588/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1l5THB92g-0HDaUjBNFrZU65ctg0gSG0k\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -480,7 +498,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#7986",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e יובל\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e פלאיה ונאו\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 05-10-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2169\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=17_H51k00azLSJxn3SP13qHVOdtzWLRXy\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e יובל\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e פלאיה ונאו\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 05-10-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 400\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=17_H51k00azLSJxn3SP13qHVOdtzWLRXy\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -498,7 +516,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#7988",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e ירדן\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e פלאיה ונאו\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 05-10-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2169\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=17_H51k00azLSJxn3SP13qHVOdtzWLRXy\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e ירדן\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e פלאיה ונאו\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 05-10-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 401\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3769793363313787\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=17_H51k00azLSJxn3SP13qHVOdtzWLRXy\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -804,24 +822,6 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#8172",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e שמעון סלוק\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2618\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3800666493559807\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3800666493559807\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1LbDaNhQ0s7spVjQiatMcD8UlfnkW2-9Y\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
-                                            "tessellate":  -1,
-                                            "extrude":  0,
-                                            "visibility":  -1
-                                        },
-                         "geometry":  {
-                                          "type":  "Point",
-                                          "coordinates":  [
-                                                              100.42035,
-                                                              14.0076,
-                                                              0.0
-                                                          ]
-                                      }
-                     },
-                     {
-                         "type":  "Feature",
-                         "properties":  {
-                                            "Name":  "#8172",
                                             "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e שמעון סלוק\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 04-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2602\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3799664290326694\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3799664290326694\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1v3hkl5drRTQxpCKYFGiHiC4mbMmXziJD\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
@@ -832,6 +832,24 @@
                                           "coordinates":  [
                                                               100.04847,
                                                               14.91495,
+                                                              0.0
+                                                          ]
+                                      }
+                     },
+                     {
+                         "type":  "Feature",
+                         "properties":  {
+                                            "Name":  "#8172",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e שמעון סלוק\u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 05-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2618\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3800666493559807\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3800666493559807\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1LbDaNhQ0s7spVjQiatMcD8UlfnkW2-9Y\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "tessellate":  -1,
+                                            "extrude":  0,
+                                            "visibility":  -1
+                                        },
+                         "geometry":  {
+                                          "type":  "Point",
+                                          "coordinates":  [
+                                                              100.42035,
+                                                              14.0076,
                                                               0.0
                                                           ]
                                       }
@@ -894,7 +912,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#8177",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e אושויץ\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 06-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 2628\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3802007976758992/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3802007976758992/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1vaqLw_uW85B5C4lrp0tQ-bIIMXrk9Jv6\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e אושויץ\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 06-11-2025\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 146\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3802007976758992/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3802007976758992/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1vaqLw_uW85B5C4lrp0tQ-bIIMXrk9Jv6\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1
@@ -1038,7 +1056,7 @@
                          "type":  "Feature",
                          "properties":  {
                                             "Name":  "#8477",
-                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e Les arc\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 09-02-2026\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 3647\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3885747015051754/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3885747015051754/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1CBnesVj8LU-oBaj2eOupcHdE-0O-6d5r\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
+                                            "description":  "\u003cdiv dir=\u0027rtl\u0027 style=\u0027font-family:Arial;\u0027\u003e\u003cb\u003eשם:\u003c/b\u003e \u003cbr/\u003e\u003cb\u003eאתר:\u003c/b\u003e Les arc\u003cbr/\u003e\u003cb\u003eתאריך:\u003c/b\u003e 09-02-2026\u003cbr/\u003e\u003cb\u003eID:\u003c/b\u003e 82\u003cbr/\u003e\u003cb\u003eFB:\u003c/b\u003e \u003ca href=\u0027https://www.facebook.com/groups/beshvil.yael/posts/3885747015051754/\u0027\u003ehttps://www.facebook.com/groups/beshvil.yael/posts/3885747015051754/\u003c/a\u003e\u003cbr/\u003e\u003cbr/\u003e\u003cimg src=\u0027https://drive.google.com/uc?export=view\u0026amp;id=1CBnesVj8LU-oBaj2eOupcHdE-0O-6d5r\u0027 width=\u0027450\u0027/\u003e\u003cbr/\u003e\u003c/div\u003e",
                                             "tessellate":  -1,
                                             "extrude":  0,
                                             "visibility":  -1

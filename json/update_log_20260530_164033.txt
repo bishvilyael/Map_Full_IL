@@ -1,0 +1,31 @@
+﻿Started: 2026-05-30 16:40:33
+Map type: Full
+Source  : G:\My Drive\Sfirat_Yeelim\Exports\KML\Full_Export\30-05-26
+Output  : G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL\json
+Count   : 8
+Split full Israel/rest: True
+OK: 0.kml -> 0.geojson
+Duplicate features removed from 0.geojson: 5
+Split GeoJSON: 0.geojson -> 0_israel.geojson=96, 0_rest.geojson=101. Original removed to prevent double loading.
+OK: 1-1499.kml -> 1-1499.geojson
+Duplicate features removed from 1-1499.geojson: 78
+Split GeoJSON: 1-1499.geojson -> 1-1499_israel.geojson=766, 1-1499_rest.geojson=410. Original removed to prevent double loading.
+OK: 1500-2999.kml -> 1500-2999.geojson
+Duplicate features removed from 1500-2999.geojson: 54
+Split GeoJSON: 1500-2999.geojson -> 1500-2999_israel.geojson=584, 1500-2999_rest.geojson=400. Original removed to prevent double loading.
+OK: 3000-4499.kml -> 3000-4499.geojson
+Duplicate features removed from 3000-4499.geojson: 3
+Split GeoJSON: 3000-4499.geojson -> 3000-4499_israel.geojson=354, 3000-4499_rest.geojson=367. Original removed to prevent double loading.
+OK: 4500-5999.kml -> 4500-5999.geojson
+Split GeoJSON: 4500-5999.geojson -> 4500-5999_israel.geojson=270, 4500-5999_rest.geojson=223. Original removed to prevent double loading.
+OK: 6000-7499.kml -> 6000-7499.geojson
+Split GeoJSON: 6000-7499.geojson -> 6000-7499_israel.geojson=287, 6000-7499_rest.geojson=254. Original removed to prevent double loading.
+OK: 7500-8999.kml -> 7500-8999.geojson
+Split GeoJSON: 7500-8999.geojson -> 7500-8999_israel.geojson=130, 7500-8999_rest.geojson=68. Original removed to prevent double loading.
+OK: 9000-10499.kml -> 9000-10499.geojson
+Split GeoJSON: 9000-10499.geojson -> 9000-10499_israel.geojson=68, 9000-10499_rest.geojson=12. Original removed to prevent double loading.
+Split output check: total geojson=16, israel=8, rest=8, plain=0
+Full map title: מפת יעלים מצטברת - עדכון 30/05/2026
+Full map total points: 4390
+Point summary file: G:\My Drive\Sfirat_Yeelim\Exports\RIPOS\Map_Full_IL\points-summary.json
+Split Full Israel/Rest mode: LinksVideos and Map_Full were not updated.
